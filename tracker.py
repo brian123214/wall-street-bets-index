@@ -10,9 +10,6 @@ def closePrice(ticker):
     return previousClose, currentClose
     
 x, y = popularTickers()
-print(x)
-print(y)
-
 # how much top tickers you want
 x = x[:10]
 y = y[:10]
