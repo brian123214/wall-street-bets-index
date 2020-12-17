@@ -28,21 +28,22 @@ def get_data():
         "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     ticker_set = get_tickers()
     tickers = {}
-    sub = reddit.subreddit("wallstreetbets")
-    for submission in sub.search('flair:"Daily Discussion"', limit = 1):
-        print(submission.title)
-        for comment in iter_top_level(submission.comments): 
-            # set how many comments you want to search
-            if counter == 1000:
-                return tickers
-            for word in comment.body.split():
-                if word == word.upper() and word in ticker_set and word not in flagged_words:
-                    if word not in tickers:
-                        tickers[word] = 1
-                    else:
-                        tickers[word] += 1
-            counter += 1
-            counter += 1
+    # Enter the url of daily discussion post
+    url = "https://www.reddit.com/r/wallstreetbets/comments/kdjq0q/daily_discussion_thread_for_december_15_2020/"
+    submission = reddit.submission(url=url)
+    print(submission.title)
+    for comment in iter_top_level(submission.comments): 
+        # set how many comments you want to search
+        if counter == 1000:
+            return tickers
+        for word in comment.body.split():
+            if word == word.upper() and word in ticker_set and word not in flagged_words:
+                if word not in tickers:
+                    tickers[word] = 1
+                else:
+                    tickers[word] += 1
+        counter += 1
+        counter += 1
     return tickers
 
 def popularTickers():
@@ -56,7 +57,7 @@ def popularTickers():
             x.append(a)
             y.append(b)
             
-    # Uncomment to see a pie graph instead
+    # Uncomment to see a pie graph 
     # fig1, ax1 = plt.subplots()
     # ax1.pie(y, labels=x, autopct='%1.1f%%', shadow=True, startangle=90)
     # ax1.axis('equal')
