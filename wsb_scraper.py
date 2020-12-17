@@ -55,12 +55,10 @@ def popularTickers():
         if b > 0:
             x.append(a)
             y.append(b)
-    # If you want to see a plot of the number of mentioned tickers
-    # x_pos = [i for i, _ in enumerate(x)]
-    # plt.bar(x_pos, y, color='blue')
-    # plt.xlabel("Tickers")
-    # plt.ylabel("Mentions")
-    # plt.title("Wall Street Bets Index")
-    # plt.xticks(x_pos, x)
+            
+    # Uncomment to see a pie graph instead
+    # fig1, ax1 = plt.subplots()
+    # ax1.pie(y, labels=x, autopct='%1.1f%%', shadow=True, startangle=90)
+    # ax1.axis('equal')
     # plt.show()
     return x, y
