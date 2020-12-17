@@ -3,7 +3,7 @@ from praw.models import MoreComments
 import matplotlib.pyplot as plt
 
 # Creates a set of stock tickers in NASDAQ
-def get_tickers():
+def nasdaq_tickers():
     fin = open("nasdaqtraded.txt", 'r')
     tickers = set()
     fin.readline()
@@ -20,13 +20,13 @@ def iter_top_level(comments):
         else:
             yield top_level_comment
 
-def get_data():
+def ticker_count():
     reddit = praw.Reddit(client_id = "ENTER OWN", client_secret = "ENTER OWN", user_agent = "ENTER OWN")
     counter = 0
     # People may use use words that happen to be real ticker names
     flagged_words = ["YOLO", "PUMP", "RH", "EOD", "IPO", "ATH", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", 
         "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-    ticker_set = get_tickers()
+    ticker_set = nasdaq_tickers()
     tickers = {}
     # Enter the url of daily discussion post
     url = "https://www.reddit.com/r/wallstreetbets/comments/kdjq0q/daily_discussion_thread_for_december_15_2020/"
@@ -47,8 +47,7 @@ def get_data():
     return tickers
 
 def popularTickers():
-    result = get_data()
-    print(result)
+    result = ticker_count()
     x = []
     y = []
     for a, b in result.items():
@@ -56,10 +55,10 @@ def popularTickers():
         if b > 0:
             x.append(a)
             y.append(b)
-            
     # Uncomment to see a pie graph 
     # fig1, ax1 = plt.subplots()
     # ax1.pie(y, labels=x, autopct='%1.1f%%', shadow=True, startangle=90)
     # ax1.axis('equal')
     # plt.show()
     return x, y
+print(popularTickers)
